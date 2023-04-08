@@ -18,7 +18,7 @@ public class ReceiptController {
     public @ResponseBody ResponseEntity<String> calculateGrandTotal(@RequestBody Receipt receiptJSON) {
         Double totalOfReceipt = receiptService.calculateGrandTotal(receiptJSON);
         JSONObject resp = new JSONObject();
-        resp.put("total", totalOfReceipt);
+        resp.put("amount", totalOfReceipt);
 
         if (totalOfReceipt == null) {
             return ResponseEntity.notFound().build();

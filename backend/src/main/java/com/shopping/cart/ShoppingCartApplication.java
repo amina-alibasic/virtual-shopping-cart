@@ -19,7 +19,7 @@ public class ShoppingCartApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/api/calculate-total").allowedOrigins("http://localhost:4200");
+				registry.addMapping("/api/calculate-grand-total").allowedOrigins("http://localhost:4200");
 			}
 		};
 	}
