@@ -7,15 +7,27 @@ import { ReceiptService } from 'src/services/receipt.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'frontend';
   cart = jsonData;
+  formatOption: number = 0; // 0 - JSON, 1 - amt only
+  totalAmount: totalOfCart = new totalOfCart;
 
   constructor(private receiptService: ReceiptService) { }
-  private URL = '../assets/cart.json';
 
-  ngOnInit() {
-    console.log(this.cart.items);
-    // this.receiptService.
+
+  changeFormat(option: number) {
+    this.formatOption = option;
   }
+
+  calculate() {
+    this.receiptService.calculateTotal(this.cart).subscribe((response) =>{
+      this.totalAmount = response;
+    }
+    );
+  }
+}
+
+export class totalOfCart {
+  total: number = 0;
 }
