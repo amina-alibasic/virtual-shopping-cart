@@ -13,10 +13,10 @@ public class ReceiptController {
     @Autowired
     ReceiptService receiptService;
     @CrossOrigin("*")
-    @RequestMapping(value = "/calculate-total", method = RequestMethod.POST,
+    @RequestMapping(value = "/calculate-grand-total", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<String> calculateTotal(@RequestBody Receipt receiptJSON) {
-        Double totalOfReceipt = receiptService.calculateTotal(receiptJSON);
+    public @ResponseBody ResponseEntity<String> calculateGrandTotal(@RequestBody Receipt receiptJSON) {
+        Double totalOfReceipt = receiptService.calculateGrandTotal(receiptJSON);
         JSONObject resp = new JSONObject();
         resp.put("total", totalOfReceipt);
 

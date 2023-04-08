@@ -11,7 +11,7 @@ export class AppComponent {
   title = 'frontend';
   cart = jsonData;
   formatOption: number = 0; // 0 - JSON, 1 - amt only
-  totalAmount: totalOfCart = new totalOfCart;
+  grandTotalObject: grandTotal = new grandTotal;
 
   constructor(private receiptService: ReceiptService) { }
 
@@ -20,14 +20,14 @@ export class AppComponent {
     this.formatOption = option;
   }
 
-  calculate() {
-    this.receiptService.calculateTotal(this.cart).subscribe((response) =>{
-      this.totalAmount = response;
+  calculateGrandTotal() {
+    this.receiptService.calculateGrandTotal(this.cart).subscribe((response) =>{
+      this.grandTotalObject = response;
     }
     );
   }
 }
 
-export class totalOfCart {
-  total: number = 0;
+export class grandTotal {
+  amount: number = 0;
 }

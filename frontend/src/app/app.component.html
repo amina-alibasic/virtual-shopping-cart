@@ -1,10 +1,10 @@
 
 <div style="margin: 20px;">
-  <button mat-raised-button (click)="calculate()">Calculate total price of items in cart</button>
-  <span *ngIf="totalAmount.total !== 0">
+  <button mat-raised-button (click)="calculateGrandTotal()">Calculate total price of items in cart</button>
+  <span *ngIf="grandTotalObject.amount !== 0">
     <h1>Total price of items in cart:</h1>
-    <h2 *ngIf="formatOption===0"> {{ totalAmount | json}} </h2>
-    <h2 *ngIf="formatOption===1">{{ totalAmount.total | number : '1.2-2' }}</h2>
+    <h2 *ngIf="formatOption===0"> {{ grandTotalObject | json}} </h2>
+    <h2 *ngIf="formatOption===1">{{ grandTotalObject.amount | number : '1.2-2' }}</h2>
     <button mat-raised-button (click)="changeFormat(0)">JSON format</button>
     <button mat-raised-button (click)="changeFormat(1)">Amount only</button>
   </span>
