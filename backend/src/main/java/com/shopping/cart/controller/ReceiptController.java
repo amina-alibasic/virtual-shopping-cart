@@ -1,5 +1,7 @@
-package com.shopping.cart;
+package com.shopping.cart.controller;
 
+import com.shopping.cart.model.Receipt;
+import com.shopping.cart.service.IReceiptService;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -7,13 +9,11 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Map;
-
 @RestController
 @RequestMapping("/api")
 public class ReceiptController {
     @Autowired
-    ReceiptService receiptService;
+    IReceiptService receiptService;
     @CrossOrigin("*")
     @RequestMapping(value = "/calculate-grand-total", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)

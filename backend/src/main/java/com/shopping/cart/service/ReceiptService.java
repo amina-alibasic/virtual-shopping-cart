@@ -1,14 +1,13 @@
-package com.shopping.cart;
+package com.shopping.cart.service;
 
+import com.shopping.cart.model.Item;
+import com.shopping.cart.model.Receipt;
 import org.json.JSONObject;
 import org.springframework.stereotype.Service;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Service
-public class ReceiptService {
+public class ReceiptService implements IReceiptService {
 
     private Double grandTotal;
     private Double subtotal;
@@ -16,6 +15,7 @@ public class ReceiptService {
     private Double taxableSubtotal;
     private final Double taxRate = 0.0825;
 
+    @Override
     public JSONObject calculateGrandTotal(Receipt receipt){
         // set grand total to 0 each time the API is called (don't persist the value)
         this.grandTotal = 0.00;
@@ -31,6 +31,7 @@ public class ReceiptService {
         return resp;
     }
 
+    @Override
     public JSONObject calculateSubtotalAndTaxTotal(Receipt receipt){
         this.subtotal = 0.00;
         // if total hasn't been calculated yet
@@ -49,6 +50,7 @@ public class ReceiptService {
 
     }
 
+    @Override
     public JSONObject calculateTaxableSubtotal(Receipt receipt){
         this.taxableSubtotal = 0.00;
         // if total hasn't been calculated yet
