@@ -41,6 +41,7 @@ export class AppComponent {
     });
     this.showGrandTotal = true;
     this.showSubtotalAndTaxTotal = true;
+    this.showTaxableSubtotal = false;
   }
 
   calculateTaxableSubtotal() {
