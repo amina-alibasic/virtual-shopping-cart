@@ -3,29 +3,56 @@
   <button mat-raised-button class="btn" (click)="calculateGrandTotal()">Calculate total price of items in cart</button>
   <button mat-raised-button class="btn" (click)="calculateSubtotalAndTaxTotal()">Calculate the subtotal and tax total of a given shopping cart</button>
   <button mat-raised-button class="btn" (click)="calculateTaxableSubtotal()">Calculate taxable subtotal</button>
+  <button mat-raised-button class="btn" (click)="applyCoupons()">Apply Coupons</button>
+
   <button mat-raised-button class="btn" (click)="clearAll()">Clear All</button>
 
+  <div *ngIf="!applyCouponsView">
+    <span *ngIf="showGrandTotal">
+      <h1>Total price of items in cart:</h1>
+      <h2> {{ calculatedReceiptObj.grandTotal | number : '1.2-2' }}</h2>
+    </span>
+  
+    <span *ngIf="showSubtotalAndTaxTotal">
+      <h1>Subtotal before discounts:</h1>
+      <h2>{{ calculatedReceiptObj.subtotalBeforeDiscounts | number : '1.2-2' }}</h2>
+  
+      <h1>Tax total of items in cart:</h1>
+      <h2>{{ calculatedReceiptObj.taxTotalBeforeDiscounts | number : '1.2-2' }}</h2>
+    </span>
+  
+    <span *ngIf="showTaxableSubtotal">
+      <h1>Taxable subtotal before discounts:</h1>
+      <h2>{{ calculatedReceiptObj.taxableSubtotalBeforeDiscounts | number : '1.2-2' }}</h2>
+    </span>
+  </div>
 
+  <div *ngIf="applyCouponsView">
+    <h1>Subtotal before discounts:</h1>
+    <h2> {{ calculatedReceiptObj.subtotalBeforeDiscounts | number : '1.2-2' }}</h2>
 
-  <span *ngIf="showGrandTotal">
-    <h1>Total price of items in cart:</h1>
-    <h2> {{ calculatedReceiptObj.grandTotal | number : '1.2-2' }}</h2>
-  </span>
+    <h1>Discount total:</h1>
+    <h2> {{ calculatedReceiptObj.discountTotal | number : '1.2-2' }}</h2>
 
-  <span *ngIf="showSubtotalAndTaxTotal">
-    <h1>Subtotal of items in cart:</h1>
-    <h2>{{ calculatedReceiptObj.subtotal | number : '1.2-2' }}</h2>
+    <h1>Subtotal after discounts:</h1>
+    <h2> {{ calculatedReceiptObj.subtotalAfterDiscounts | number : '1.2-2' }}</h2>
 
-    <h1>Tax total of items in cart:</h1>
-    <h2>{{ calculatedReceiptObj.taxTotal | number : '1.2-2' }}</h2>
-  </span>
-
-  <span *ngIf="showTaxableSubtotal">
     
-    <h1>Taxable subtotal of items in cart:</h1>
-    <h2>{{ calculatedReceiptObj.taxableSubtotal | number : '1.2-2' }}</h2>
-  </span>
+    <h1>Taxable subtotal after discounts:</h1>
+    <h2> {{ calculatedReceiptObj.taxableSubtotalAfterDiscounts | number : '1.2-2' }}</h2>
 
+    
+    <h1>Tax total before discounts:</h1>
+    <h2> {{ calculatedReceiptObj.taxTotalBeforeDiscounts | number : '1.2-2' }}</h2>
+
+    
+    <h1>Tax total after discounts:</h1>
+    <h2> {{ calculatedReceiptObj.taxTotalAfterDiscounts | number : '1.2-2' }}</h2>
+
+    <h1>Grand total:</h1>
+    <h2> {{ calculatedReceiptObj.grandTotal | number : '1.2-2' }}</h2>
+    
+  </div>
   <h1> JSON format:</h1>
   <h2> {{ calculatedReceiptObj | json}} </h2>
   

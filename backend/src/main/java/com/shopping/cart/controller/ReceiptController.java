@@ -2,6 +2,7 @@ package com.shopping.cart.controller;
 
 import com.shopping.cart.model.Receipt;
 import com.shopping.cart.service.IReceiptService;
+import com.shopping.cart.wrapper.ApplyCouponsWrapper;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 public class ReceiptController {
     @Autowired
     IReceiptService receiptService;
-    @CrossOrigin("*")
     @RequestMapping(value = "/calculate-grand-total", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<String> calculateGrandTotal(@RequestBody Receipt receipt) {
@@ -25,7 +25,6 @@ public class ReceiptController {
         return ResponseEntity.notFound().build();
     }
 
-    @CrossOrigin("*")
     @RequestMapping(value = "/calculate-subtotal-and-tax-total", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<String> calculateSubtotalAndTaxTotal(@RequestBody Receipt receipt) {
@@ -36,11 +35,20 @@ public class ReceiptController {
         return ResponseEntity.notFound().build();
     }
 
-    @CrossOrigin("*")
     @RequestMapping(value = "/calculate-taxable-subtotal", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public @ResponseBody ResponseEntity<String> calculateTaxableSubtotal(@RequestBody Receipt receipt) {
         JSONObject response = receiptService.calculateTaxableSubtotal(receipt);
+        if (response != null) {
+            return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @RequestMapping(value = "/apply-coupons", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<String> applyCoupons(@RequestBody ApplyCouponsWrapper requestBody) {
+        JSONObject response = receiptService.applyCoupons(requestBody.getReceipt(), requestBody.getCouponList());
         if (response != null) {
             return new ResponseEntity<>(response.toString(), HttpStatus.OK);
         }

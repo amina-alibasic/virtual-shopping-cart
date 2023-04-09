@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
+import { CalculatedReceipt, Coupon, Receipt } from 'src/app/app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -13,15 +13,19 @@ export class ReceiptService {
   }
 
   
-  public calculateGrandTotal(cartJson: any) {
-    return this.http.post<any>(this.url + '/calculate-grand-total', cartJson);
+  public calculateGrandTotal(receipt: Receipt) {
+    return this.http.post<CalculatedReceipt>(this.url + '/calculate-grand-total', receipt);
   }
 
-  public calculateSubtotalAndTaxTotal(cartJson: any) {
-    return this.http.post<any>(this.url + '/calculate-subtotal-and-tax-total', cartJson);
+  public calculateSubtotalAndTaxTotal(receipt: Receipt) {
+    return this.http.post<CalculatedReceipt>(this.url + '/calculate-subtotal-and-tax-total', receipt);
   }
 
-  public calculateTaxableSubtotal(cartJson: any) {
-    return this.http.post<any>(this.url + '/calculate-taxable-subtotal', cartJson);
+  public calculateTaxableSubtotal(receipt: Receipt) {
+    return this.http.post<CalculatedReceipt>(this.url + '/calculate-taxable-subtotal', receipt);
+  }
+
+  public applyCoupons(receipt: Receipt, couponList: Coupon[]) {
+    return this.http.post<CalculatedReceipt>(this.url + '/apply-coupons', {receipt, couponList});
   }
 }

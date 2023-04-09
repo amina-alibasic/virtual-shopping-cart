@@ -22,6 +22,8 @@ public class ShoppingCartApplication {
 				registry.addMapping("/api/calculate-grand-total").allowedOrigins("http://localhost:4200");
 				registry.addMapping("/api/calculate-subtotal-and-tax-total").allowedOrigins("http://localhost:4200");
 				registry.addMapping("/api/calculate-taxable-subtotal").allowedOrigins("http://localhost:4200");
+				registry.addMapping("/api/apply-coupons").allowedOrigins("http://localhost:4200");
+
 
 			}
 		};
