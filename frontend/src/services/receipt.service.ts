@@ -13,7 +13,15 @@ export class ReceiptService {
   }
 
   
- public calculateGrandTotal(cartJson: any) {
-  return this.http.post<any>(this.url + '/calculate-grand-total', cartJson);
-}
+  public calculateGrandTotal(cartJson: any) {
+    return this.http.post<any>(this.url + '/calculate-grand-total', cartJson);
+  }
+
+  public calculateSubtotalAndTaxTotal(cartJson: any) {
+    return this.http.post<any>(this.url + '/calculate-subtotal-and-tax-total', cartJson);
+  }
+
+  public calculateTaxableSubtotal(cartJson: any) {
+    return this.http.post<any>(this.url + '/calculate-taxable-subtotal', cartJson);
+  }
 }

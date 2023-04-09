@@ -1,13 +1,33 @@
 
 <div style="margin: 20px;">
-  <button mat-raised-button (click)="calculateGrandTotal()">Calculate total price of items in cart</button>
-  <span *ngIf="grandTotalObject.amount !== 0">
+  <button mat-raised-button class="btn" (click)="calculateGrandTotal()">Calculate total price of items in cart</button>
+  <button mat-raised-button class="btn" (click)="calculateSubtotalAndTaxTotal()">Calculate the subtotal and tax total of a given shopping cart</button>
+  <button mat-raised-button class="btn" (click)="calculateTaxableSubtotal()">Calculate taxable subtotal</button>
+  <button mat-raised-button class="btn" (click)="clearAll()">Clear All</button>
+
+
+
+  <span *ngIf="showGrandTotal">
     <h1>Total price of items in cart:</h1>
-    <h2 *ngIf="formatOption===0"> {{ grandTotalObject | json}} </h2>
-    <h2 *ngIf="formatOption===1">{{ grandTotalObject.amount | number : '1.2-2' }}</h2>
-    <button mat-raised-button (click)="changeFormat(0)">JSON format</button>
-    <button mat-raised-button (click)="changeFormat(1)">Amount only</button>
+    <h2> {{ calculatedReceiptObj.grandTotal | number : '1.2-2' }}</h2>
   </span>
+
+  <span *ngIf="showSubtotalAndTaxTotal">
+    <h1>Subtotal of items in cart:</h1>
+    <h2>{{ calculatedReceiptObj.subtotal | number : '1.2-2' }}</h2>
+
+    <h1>Tax total of items in cart:</h1>
+    <h2>{{ calculatedReceiptObj.taxTotal | number : '1.2-2' }}</h2>
+  </span>
+
+  <span *ngIf="showTaxableSubtotal">
+    
+    <h1>Taxable subtotal of items in cart:</h1>
+    <h2>{{ calculatedReceiptObj.taxableSubtotal | number : '1.2-2' }}</h2>
+  </span>
+
+  <h1> JSON format:</h1>
+  <h2> {{ calculatedReceiptObj | json}} </h2>
   
 </div>
 

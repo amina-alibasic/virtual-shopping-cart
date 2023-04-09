@@ -10,24 +10,52 @@ import { ReceiptService } from 'src/services/receipt.service';
 export class AppComponent {
   title = 'frontend';
   cart = jsonData;
-  formatOption: number = 0; // 0 - JSON, 1 - amt only
-  grandTotalObject: grandTotal = new grandTotal;
+  calculatedReceiptObj: CalculatedReceipt = new CalculatedReceipt;
 
   constructor(private receiptService: ReceiptService) { }
 
 
-  changeFormat(option: number) {
-    this.formatOption = option;
+  showGrandTotal: Boolean = false;
+  showSubtotalAndTaxTotal: Boolean = false;
+  showTaxableSubtotal: Boolean = false;
+
+  clearAll() {
+    this.showGrandTotal = false;
+    this.showSubtotalAndTaxTotal = false;
+    this.showTaxableSubtotal = false;
+    this.calculatedReceiptObj = new CalculatedReceipt;
   }
 
   calculateGrandTotal() {
     this.receiptService.calculateGrandTotal(this.cart).subscribe((response) =>{
-      this.grandTotalObject = response;
-    }
-    );
+      this.calculatedReceiptObj = response;
+    });
+    this.showGrandTotal = true;
+    this.showTaxableSubtotal = false;
+    this.showSubtotalAndTaxTotal = false;
+  }
+
+  calculateSubtotalAndTaxTotal() {
+    this.receiptService.calculateSubtotalAndTaxTotal(this.cart).subscribe((response) =>{
+      this.calculatedReceiptObj = response;
+    });
+    this.showGrandTotal = true;
+    this.showSubtotalAndTaxTotal = true;
+  }
+
+  calculateTaxableSubtotal() {
+    this.receiptService.calculateTaxableSubtotal(this.cart).subscribe((response) =>{
+      this.calculatedReceiptObj = response;
+    });
+    this.showSubtotalAndTaxTotal = true;
+    this.showTaxableSubtotal = true;
   }
 }
 
-export class grandTotal {
-  amount: number = 0;
+export class CalculatedReceipt {
+  grandTotal: number = 0;
+  subtotal: number = 0;
+  taxTotal: number = 0;
+  taxableSubtotal: number = 0;
+
 }

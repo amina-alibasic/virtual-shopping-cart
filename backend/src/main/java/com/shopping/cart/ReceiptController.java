@@ -7,6 +7,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class ReceiptController {
@@ -15,15 +17,33 @@ public class ReceiptController {
     @CrossOrigin("*")
     @RequestMapping(value = "/calculate-grand-total", method = RequestMethod.POST,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public @ResponseBody ResponseEntity<String> calculateGrandTotal(@RequestBody Receipt receiptJSON) {
-        Double totalOfReceipt = receiptService.calculateGrandTotal(receiptJSON);
-        JSONObject resp = new JSONObject();
-        resp.put("amount", totalOfReceipt);
-
-        if (totalOfReceipt == null) {
-            return ResponseEntity.notFound().build();
-        } else {
-          return new ResponseEntity<>(resp.toString(), HttpStatus.OK);
+    public @ResponseBody ResponseEntity<String> calculateGrandTotal(@RequestBody Receipt receipt) {
+        JSONObject totalOfReceipt = receiptService.calculateGrandTotal(receipt);
+        if (totalOfReceipt != null) {
+            return new ResponseEntity<>(totalOfReceipt.toString(), HttpStatus.OK);
         }
+        return ResponseEntity.notFound().build();
+    }
+
+    @CrossOrigin("*")
+    @RequestMapping(value = "/calculate-subtotal-and-tax-total", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<String> calculateSubtotalAndTaxTotal(@RequestBody Receipt receipt) {
+        JSONObject response = receiptService.calculateSubtotalAndTaxTotal(receipt);
+        if (response != null) {
+            return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @CrossOrigin("*")
+    @RequestMapping(value = "/calculate-taxable-subtotal", method = RequestMethod.POST,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public @ResponseBody ResponseEntity<String> calculateTaxableSubtotal(@RequestBody Receipt receipt) {
+        JSONObject response = receiptService.calculateTaxableSubtotal(receipt);
+        if (response != null) {
+            return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+        }
+        return ResponseEntity.notFound().build();
     }
 }
